@@ -1,0 +1,59 @@
+<html>
+<head>
+  <link rel="stylesheet" href="{{url_for('static', filename='main.css')}}">
+  <link href="https://fonts.googleapis.com/css?family=Acme|K2D" rel="stylesheet">
+  <link rel='icon' href="{{url_for('static', filename='logo.png')}}">
+</head>
+    <body>
+      <div class="sticky">
+        <h1>OnLineShop</h1>
+      </div>
+      <div class="nav">
+        <p><a href="/">Home</a> >
+        <a href="/buy/">Buy</a> > 
+        <a href="/viewproduct">View Product</a> > <a href="">{{name}}</a></p>
+      </div>
+        <h2>Product Information</h2>
+        <table>
+            <tr>
+                <td>Name :</td><td>{{name}}</td>
+            </tr>
+            <tr>
+                <td>In Stock :</td><td>{{quantity}}</td>
+            </tr>
+            <tr>
+                <td>Category :</td><td>{{category}}</td>
+            </tr>
+            <tr>
+                <td>Price :</td>
+                <td>₹ {{sell_price}}</td>
+            </tr>
+            <tr>
+                <td>Sold By :</td><td><a href="" target="blank">{{sell_name}}</a></td>
+            </tr>
+            <tr>
+              <td>About :</td><td><pre>{{desp}}</pre></td>
+            </tr>
+        </table>
+        <div class="centerthis">
+        <p class="press"><a href="/buy/{{prod_id}}">Buy Product</a></p>
+        <p class="press"><a href="/buy/cart/{{prod_id}}">Add to Cart</a></p>
+        </div>
+
+        <h2>Recommended Items</h2>
+        <table>
+          <tr>
+            <th>SNo.</th><th>Name</th>
+            <th>Category</th><th>Price</th><th></th>
+          </tr>
+          {% set cnt={'val':1} %}
+          {% for i in rec_items %}
+          <tr>
+            <td>{{cnt['val']}}</td> <td>{{i[1]}}</td>  <td>{{i[2]}}</td> <td>₹ {{i[3]}}</td>
+           <td><a href="/viewproduct/{{i[0]}}">View</a></td>
+          </tr>
+          {% if cnt.update({'val':(cnt['val']+1)}) %}{% endif %}
+          {% endfor %}
+        </table>
+    </body>
+</html>

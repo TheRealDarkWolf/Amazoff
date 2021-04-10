@@ -1,0 +1,49 @@
+<html>
+<head>
+  <title>Login</title>
+  <link rel="stylesheet" href="{{url_for('static', filename='login.css')}}">
+  <link href="https://fonts.googleapis.com/css?family=Acme|K2D" rel="stylesheet">
+  <link rel='icon' href="{{url_for('static', filename='logo.png')}}">
+  <!--<link rel="stylesheet" href="../static/login.css">-->
+</head>
+<body>
+  <div class="loginbox">
+    <img src="../static/avatar.png" class="avatar">
+      <h1>Login Here</h1>
+        {% if err %}
+        <p>Sorry! entered email and password do not match any records</p>
+        {% endif %}
+      <form action="" method="POST">
+        <p>Email</p>
+        <input type="email" name="email" placeholder="Enter e-mail" required>
+        <p>Password</p>
+        <input type="password" name="password" placeholder="Enter password" required>
+        <input type="submit" name="" value="Login">
+        <a href="/changepassword">Lost your password?</a><br>
+        <a href="/signup">Don't have an account?</a>
+      </form>
+  </div>
+
+<!--
+  <div class="sticky">
+    <h1>OnLineShop</h1>
+  </div>
+  <div class="nav">
+    <p><a href="/">Home</a> > <a href="">Login</a></p>
+  </div>
+  <h2>Login</h2>
+
+  <form action="" method="POST">
+    <table>
+      <tr>
+        <td>EMAIL:</td><td><input type="email" name="email" required></td>
+      </tr><tr>
+        <td>PASSWORD:</td><td><input type="password" name="password" required></td>
+      </tr>
+    </table>
+    <input type="submit" value="SUBMIT" style="display:block; margin-left:auto; margin-right:auto; margin-top:1vw;">
+  </form>
+-->
+
+</body>
+</html>

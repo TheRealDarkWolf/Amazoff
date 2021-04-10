@@ -1,0 +1,117 @@
+<html>
+<head>
+  <title>Sign Up</title>
+  <link rel="stylesheet" href="{{url_for('static', filename='login.css')}}">
+  <link href="https://fonts.googleapis.com/css?family=Acme|K2D" rel="stylesheet">
+  <link rel='icon' href="{{url_for('static', filename='logo.png')}}">
+  <!--<link rel="stylesheet" href="../static/login.css">-->
+</head>
+<body>
+  <div class="signupbox">
+    <img src="../static/avatar.png" class="avatar">
+    <h1>Create Account</h1>
+    {% if not ok %}
+      <p>Sorry! Account with provided email already exists. Please enter another email</p>
+    {% endif %}
+    <form action="" method="POST" onsubmit="return validateForm()">
+      <table class="signuptable">
+        <tr>
+          <td class="left">
+            <p>Name</p>
+            <input type="text" name="name" required> 
+          </td>
+          <td class="right">
+            <p>Email</p>
+            <input type="email" name="email" required>
+          </td>
+        </tr>
+        <tr>
+          <td class="left">
+            <p>Phone</p>
+            <input type="text" name="phone" required>  
+          </td>
+          <td class="right">
+            <p>Address</p>
+            <input type="text" name="address" required>
+          </td>
+        </tr>
+        <tr>
+          <td class="left">
+            <p>City</p>
+            <input type="text" name="city" required>
+          </td>
+          <td class="right">
+            <p>State</p>
+            <input type="text" name="state" required>
+          </td>
+        </tr>
+        <tr>
+          <td class="left">
+            <p>Password</p>
+            <input type="password" name="password" required>
+          </td>
+          <td class="right">
+            <p>Re-enter Password</p>
+            <input type="password" name="confirm" required>                   
+          </td>
+        </tr>  
+      </table>
+      <input type="submit" name="" value="Sign Up">
+      <a href="/login" style="margin-left: 220px;">Already have an account?</a><br>
+      <script type="text/javascript" src="{{url_for('static', filename='main.js')}}"></script>
+    </form>
+
+  </div>
+</body>
+</html>
+
+
+  <!--
+  {% if not ok %}
+    <p>Sorry! Account with provided email already exists. Please enter another email</p>
+  {% endif %}
+  <form action="" method="POST" onsubmit="return validateForm()">
+    <h2>Create New Account:</h2>
+
+    <table>
+    <tr>
+      <td>NAME :</td><td><input type="text" name="name" required></td>
+    </tr>
+    <tr>
+      <td>EMAIL :</td><td><input type="email" name="email" required></td>
+    </tr>
+    <tr>
+      <td>PHONE :</td><td><input type="text" name="phone" required></td>
+    </tr>
+    <tr>
+      <td><b>ADDRESS:</b></td>
+    </tr>
+    <tr>
+      <td>LANDMARK/AREA:</td><td><input type="text" name="area" required></td>
+    </tr>
+    <tr>
+      <td>LOCALITY :</td><td><input type="text" name="locality" required></td>
+    </tr>
+    <tr>
+      <td>CITY :</td><td><input type="text" name="city" required></td>
+    </tr>
+    <tr>
+      <td>STATE :</td><td><input type="text" name="state" required></td>
+    </tr>
+    <tr>
+      <td>COUNTRY :</td><td><input type="text" name="country" required></td>
+    </tr>
+    <tr>
+      <td>ZIPCODE :</td><td><input type="text" name="zip" required></td>
+    </tr>
+    <tr>
+      <td>ENTER PASSWORD :</td><td><input type="password" name="password" required></td>
+    </tr>
+    <tr>
+      <td>RE-ENTER PASSWORD :</td><td><input type="password" name="cnfrm_psswd" required></td>
+    </tr>
+    </table>
+    <p><input type="submit" value="SUBMIT" style="display:block; margin-left:auto; margin-right:auto; margin-top:1vw;"></p>
+    <script type="text/javascript" src="{{url_for('static', filename='main.js')}}"></script>
+  </form>
+-->
