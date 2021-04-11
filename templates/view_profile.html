@@ -1,16 +1,8 @@
-<html>
-    <head>
-        <link rel="stylesheet" href="{{url_for('static', filename='main.css')}}">
-        <link href="https://fonts.googleapis.com/css?family=Acme|K2D" rel="stylesheet">
-        <link rel='icon' href="{{url_for('static', filename='logo.png')}}">
-      </head>
-<body>
-    <div class="sticky">
-        <h1>OnLineShop</h1>
-    </div>
-  <div class="nav">
-    <p><a href="/">Home</a> > <a href="">User Profile</a></p>
-  </div>
+{% extends "base.html" %}
+{% block head %}
+{% endblock %}
+{% block style %}style="margin-left:1100px;"{% endblock %}
+{% block body %}
   <h2>User Profile</h2>
   {{type}} Account
   <table>
@@ -34,5 +26,4 @@
   <p class="press"><a href="/editprofile/">Edit Profile</a></p>
   <p class="press"><a href="/changepassword">Change Password</a></p>
   {% endif %}
-</body>
-</html>
+{% endblock %}

@@ -1,22 +1,12 @@
-<html>
-<head>
-  <link rel="stylesheet" href="{{url_for('static', filename='main.css')}}">
-  <link href="https://fonts.googleapis.com/css?family=Acme|K2D" rel="stylesheet">
-  <link rel='icon' href="{{url_for('static', filename='logo.png')}}">
-</head>
-    <body>
-      <div class="sticky">
-        <h1>OnLineShop</h1>
-      </div>
-      <div class="nav">
-        <p><a href="/">Home</a> >
-        <a href="/buy/">Buy</a> > 
-        <a href="/viewproduct">View Product</a> > <a href="">{{name}}</a></p>
-      </div>
+{% extends "base.html" %}
+{% block head %}
+{% endblock %}
+{% block style %}style="margin-left:1100px;"{% endblock %}
+{% block body %}
         <h2>Product Information</h2>
         <table>
             <tr>
-                <td>Name :</td><td>{{name}}</td>
+                <td>Name :</td><td>{{pname}}</td>
             </tr>
             <tr>
                 <td>In Stock :</td><td>{{quantity}}</td>
@@ -55,5 +45,4 @@
           {% if cnt.update({'val':(cnt['val']+1)}) %}{% endif %}
           {% endfor %}
         </table>
-    </body>
-</html>
+{% endblock %}

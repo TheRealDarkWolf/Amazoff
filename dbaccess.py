@@ -1,7 +1,7 @@
 import sqlite3
 
 def gen_custID():
-    conn = sqlite3.connect("Online_Shopping/Online_Shopping.db")
+    conn = sqlite3.connect("Amazoff/Online_Shopping.db")
     cur = conn.cursor()
     cur.execute("UPDATE metadata SET custnum = custnum + 1")
     conn.commit()
@@ -11,7 +11,7 @@ def gen_custID():
     return id
 
 def gen_prodID():
-    conn = sqlite3.connect("Online_Shopping/Online_Shopping.db")
+    conn = sqlite3.connect("Amazoff/Online_Shopping.db")
     cur = conn.cursor()
     cur.execute("UPDATE metadata SET prodnum = prodnum + 1")
     conn.commit()
@@ -21,7 +21,7 @@ def gen_prodID():
     return id
 
 def gen_orderID():
-    conn = sqlite3.connect("Online_Shopping/Online_Shopping.db")
+    conn = sqlite3.connect("Amazoff/Online_Shopping.db")
     cur = conn.cursor()
     cur.execute("UPDATE metadata SET ordernum = ordernum + 1")
     conn.commit()
@@ -31,7 +31,7 @@ def gen_orderID():
     return id
 
 def add_user(data):
-    conn = sqlite3.connect("Online_Shopping/Online_Shopping.db")
+    conn = sqlite3.connect("Amazoff/Online_Shopping.db")
     cur = conn.cursor()
     email = data["email"]
     a = cur.execute("SELECT * FROM customer WHERE email=?", (email,))
@@ -53,7 +53,7 @@ def add_user(data):
     return True
 
 def auth_user(data):
-    conn = sqlite3.connect("Online_Shopping/Online_Shopping.db")
+    conn = sqlite3.connect("Amazoff/Online_Shopping.db")
     cur = conn.cursor()
     email = data["email"]
     password = data["password"]
@@ -65,7 +65,7 @@ def auth_user(data):
     return a[0]
 
 def fetch_details(userid):
-    conn = sqlite3.connect("Online_Shopping/Online_Shopping.db")
+    conn = sqlite3.connect("Amazoff/Online_Shopping.db")
     cur = conn.cursor()
     a = cur.execute("SELECT * FROM customer WHERE custID=?", (userid,))
     a = list(a)
@@ -74,7 +74,7 @@ def fetch_details(userid):
     return a, b
 
 def search_users(search):
-    conn = sqlite3.connect('Online_Shopping/Online_Shopping.db')
+    conn = sqlite3.connect('Amazoff/Online_Shopping.db')
     cur = conn.cursor()
     search = "%"+search+"%"
     res = cur.execute("SELECT custID, name, email, phone, area, locality, city, state, country, zipcode FROM customer WHERE LOWER(name) like ?", (search,))
@@ -83,7 +83,7 @@ def search_users(search):
     return res
 
 def update_details(data, userid):
-    conn = sqlite3.connect("Online_Shopping/Online_Shopping.db")
+    conn = sqlite3.connect("Amazoff/Online_Shopping.db")
     cur = conn.cursor()
 
     cur.execute("UPDATE customer SET phone=?, area=?, locality=?, city=?, state=?, country=?, zipcode=? where custID=?", (data["phone"],
@@ -98,7 +98,7 @@ def update_details(data, userid):
     conn.close()
 
 def check_psswd(psswd, userid):
-    conn = sqlite3.connect("Online_Shopping/Online_Shopping.db")
+    conn = sqlite3.connect("Amazoff/Online_Shopping.db")
     cur = conn.cursor()
     a = cur.execute("SELECT password FROM customer WHERE custID=?", (userid,))
     real_psswd = list(a)[0][0]
@@ -106,14 +106,14 @@ def check_psswd(psswd, userid):
     return psswd==real_psswd
 
 def set_psswd(psswd, userid):
-    conn = sqlite3.connect("Online_Shopping/Online_Shopping.db")
+    conn = sqlite3.connect("Amazoff/Online_Shopping.db")
     cur = conn.cursor()
     a = cur.execute("UPDATE customer SET password=? WHERE custID=?", (psswd, userid))
     conn.commit()
     conn.close()
 
 def get_product_info(id):
-    conn = sqlite3.connect('Online_Shopping/Online_Shopping.db')
+    conn = sqlite3.connect('Amazoff/Online_Shopping.db')
     cur = conn.cursor()
     a = cur.execute("""SELECT p.name, p.quantity, p.category, p.cost_price, p.sell_price,
                     p.sellID, p.description, s.name FROM product p JOIN seller s
@@ -125,7 +125,7 @@ def get_product_info(id):
     return True, res[0]
 
 def search_products(srchBy, category, keyword):
-    conn = sqlite3.connect("Online_Shopping/Online_Shopping.db")
+    conn = sqlite3.connect("Amazoff/Online_Shopping.db")
     cur = conn.cursor()
     keyword = ['%'+i+'%' for i in keyword.split()]
     if len(keyword)==0: keyword.append('%%')
@@ -158,7 +158,7 @@ def search_products(srchBy, category, keyword):
 
 
 def place_order(prodID, custID, qty):
-    conn = sqlite3.connect('Online_Shopping/Online_Shopping.db')
+    conn = sqlite3.connect('Amazoff/Online_Shopping.db')
     cur = conn.cursor()
     orderID = gen_orderID()
     cur.execute("""INSERT INTO orders
@@ -168,7 +168,7 @@ def place_order(prodID, custID, qty):
     conn.close()
 
 def cust_orders(custID):
-    conn = sqlite3.connect('Online_Shopping/Online_Shopping.db')
+    conn = sqlite3.connect('Amazoff/Online_Shopping.db')
     cur = conn.cursor()
     a = cur.execute("""SELECT o.orderID, o.prodID, p.name, o.quantity, o.sell_price, o.date, o.status
                        FROM orders o JOIN product p
@@ -179,7 +179,7 @@ def cust_orders(custID):
     return res
 
 def get_order_details(orderID):
-    conn = sqlite3.connect('Online_Shopping/Online_Shopping.db')
+    conn = sqlite3.connect('Amazoff/Online_Shopping.db')
     cur = conn.cursor()
     a = cur.execute(""" SELECT o.custID, p.sellID, o.status FROM orders o JOIN product p
                         WHERE o.orderID=? AND o.prodID=p.prodID """, (orderID,))
@@ -188,14 +188,14 @@ def get_order_details(orderID):
     return res
 
 def change_order_status(orderID, new_status):
-    conn = sqlite3.connect('Online_Shopping/Online_Shopping.db')
+    conn = sqlite3.connect('Amazoff/Online_Shopping.db')
     cur = conn.cursor()
     cur.execute("UPDATE orders SET status=? WHERE orderID=? ", (new_status, orderID))
     conn.commit()
     conn.close()
 
 def cust_purchases(custID):
-    conn = sqlite3.connect('Online_Shopping/Online_Shopping.db')
+    conn = sqlite3.connect('Amazoff/Online_Shopping.db')
     cur = conn.cursor()
     a = cur.execute("""SELECT o.prodID, p.name, o.quantity, o.sell_price, o.date
                        FROM orders o JOIN product p
@@ -206,14 +206,14 @@ def cust_purchases(custID):
     return res
 
 def add_product_to_cart(prodID, custID):
-    conn = sqlite3.connect('Online_Shopping/Online_Shopping.db')
+    conn = sqlite3.connect('Amazoff/Online_Shopping.db')
     cur = conn.cursor()
     cur.execute("""INSERT INTO cart VALUES (?,?,1) """, (custID, prodID))
     conn.commit()
     conn.close()
 
 def get_cart(custID):
-    conn = sqlite3.connect('Online_Shopping/Online_Shopping.db')
+    conn = sqlite3.connect('Amazoff/Online_Shopping.db')
     cur = conn.cursor()
     a = cur.execute("""SELECT p.prodID, p.name, p.sell_price, c.sum_qty, p.quantity
                        FROM (SELECT custID, prodID, SUM(quantity) AS sum_qty FROM cart
@@ -224,7 +224,7 @@ def get_cart(custID):
     return res
 
 def update_cart(custID, qty):
-    conn = sqlite3.connect('Online_Shopping/Online_Shopping.db')
+    conn = sqlite3.connect('Amazoff/Online_Shopping.db')
     cur = conn.cursor()
     for prodID in qty:
         cur.execute("DELETE FROM cart WHERE prodID=? AND custID=?", (prodID, custID))
@@ -233,7 +233,7 @@ def update_cart(custID, qty):
     conn.close()
 
 def cart_purchase(custID):
-    conn = sqlite3.connect('Online_Shopping/Online_Shopping.db')
+    conn = sqlite3.connect('Amazoff/Online_Shopping.db')
     cur = conn.cursor()
     cart = get_cart(custID)
     for item in cart:
@@ -248,19 +248,19 @@ def cart_purchase(custID):
     conn.close()
 
 def empty_cart(custID):
-    conn = sqlite3.connect('Online_Shopping/Online_Shopping.db')
+    conn = sqlite3.connect('Amazoff/Online_Shopping.db')
     cur = conn.cursor()
     cur.execute("DELETE FROM cart WHERE custID=?", (custID,))
     conn.commit()
 
 def remove_from_cart(custID, prodID):
-    conn = sqlite3.connect('Online_Shopping/Online_Shopping.db')
+    conn = sqlite3.connect('Amazoff/Online_Shopping.db')
     cur = conn.cursor()
     cur.execute("DELETE FROM cart WHERE custID=? AND prodID=?", (custID, prodID))
     conn.commit()
     
 def recommended_items(prodID):
-    conn = sqlite3.connect('Online_Shopping/Online_Shopping.db')
+    conn = sqlite3.connect('Amazoff/Online_Shopping.db')
     cur = conn.cursor()
     cur.execute("SELECT category, sellID FROM product where prodID = ? ", (prodID,))
     output = cur.fetchall()

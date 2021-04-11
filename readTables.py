@@ -7,7 +7,7 @@ prodID = "PID0000003"
 cur.execute("SELECT category FROM product where prodID = ? ", (prodID,))
 print(cur.fetchall()[0][0])
 #    cur.execute("SELECT prodID FROM product WHERE sellID = {}".format(sellID))
-
+'''
 cur.execute("SELECT name FROM sqlite_master WHERE type='table';")
 tables = cur.fetchall()
 for i in tables:
@@ -29,3 +29,4 @@ for i in tables:
 
 cur.execute("SELECT * FROM product WHERE category='Electronics and Tech'")
 print(cur.fetchall())
+'''

@@ -1,16 +1,8 @@
-<html>
-<head>
-  <link rel="stylesheet" href="{{url_for('static', filename='main.css')}}">
-  <link href="https://fonts.googleapis.com/css?family=Acme|K2D" rel="stylesheet">
-  <link rel='icon' href="{{url_for('static', filename='logo.png')}}">
-</head>
-<body>
-  <div class="sticky">
-    <h1>OnLineShop</h1>
-  </div>
-  <div class="nav">
-    <p><a href="/">Home</a> > <a href="">Edit Profile</a></p>
-  </div>
+{% extends "base.html" %}
+{% block head %}
+{% endblock %}
+{% block style %}style="margin-left:1100px;"{% endblock %}
+{% block body %}
   <h2>Edit Profile</h2>
   Signed in as {{name}} -> {{type}} Account
   <form action="" method="POST" onsubmit="return validateForm()">
@@ -45,6 +37,4 @@
   </table>
   <input type="submit" value="Save Changes" style="display:block; margin-left:auto; margin-right:auto; margin-top:1vw;">
 </form>
-<script type="text/javascript" src="{{url_for('static', filename='main.js')}}"></script>
-</body>
-</html>
+{% endblock %}
