@@ -3,27 +3,37 @@
 {% endblock %}
 {% block style %}style="margin-left:1100px;"{% endblock %}
 {% block body %}
-  <h2>User Profile</h2>
-  {{type}} Account
-  <table>
+<div class="second" style="margin:auto">
+  <div style="width: 800px; margin:auto; padding-top: 50px;">
+  <h2 style="padding-bottom: 20px;">User Profile</h2>
+  <table class="table table-dark table table-striped">
     <tr>
-      <td>NAME :</td><td>{{name}}</td>
+      <td>Name</td><td>{{name}}</td>
     </tr>
     <tr>
-      <td>EMAIL :</td><td>{{email}}</td>
+      <td>Email</td><td>{{email}}</td>
     </tr>
     <tr>
-      <td>PHONE :</td><td>{{phone}}</td>
+      <td>Phone</td><td>{{phone}}</td>
     </tr>
     <tr>
-      <td>ADDRESS :</td><td>{{area}}, {{locality}}, {{city}}, {{state}}, {{country}}</td>
+      <td>Address</td><td>{{address}}</td>
     </tr>
     <tr>
-      <td>ZIPCODE :</td><td>{{zip}}</td>
+      <td>City</td><td>{{city}}</td>
+    </tr>
+    <tr>
+      <td>State</td><td>{{state}}</td>
     </tr>
   </table>
   {% if my %}
-  <p class="press"><a href="/editprofile/">Edit Profile</a></p>
-  <p class="press"><a href="/changepassword">Change Password</a></p>
+  <div class="button">
+  <a href="/editprofile/">Edit Profile</a>
+  </div>
+  <div class="button">
+  <a href="/changepassword">Change Password</a>
+  </div>
+</div>
+</div>  
   {% endif %}
 {% endblock %}

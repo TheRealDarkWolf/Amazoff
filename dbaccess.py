@@ -30,8 +30,25 @@ def gen_orderID():
     id = "OID"+"0"*(7-len(ordernum))+ ordernum
     return id
 
+def home_recommender():
+    conn = sqlite3.connect('Amazoff/Online_Shopping.db')
+    cur = conn.cursor()
+    items={}
+    categories=['Electronics','Fashion','Sports']
+    for category in categories:
+        cur.execute("SELECT prodID, name, description, sell_price FROM product where category=? ORDER BY prod_buy DESC", (category,))
+        output = cur.fetchmany(4)
+        items[category]=[list(item) for item in output]
+        while len(items[category])<4:
+            items[category].append(['dummy','dummy','dummy',0])
+    if len(items) == 0:
+        return False
+    return items
+
+
 def add_user(data):
     conn = sqlite3.connect("Amazoff/Online_Shopping.db")
+    print("FUNC CALLED")
     cur = conn.cursor()
     email = data["email"]
     a = cur.execute("SELECT * FROM customer WHERE email=?", (email,))
@@ -41,13 +58,10 @@ def add_user(data):
             data["email"],
             data["phone"],
             data["address"],
-            "",
             data["city"],
             data["state"],
-            "India",
-            0,
             data["password"])
-    cur.execute("INSERT INTO customer VALUES (?,?,?,?,?,?,?,?,?,?,?)",(gen_custID(), *tup))
+    cur.execute("INSERT INTO customer VALUES (?,?,?,?,?,?,?,?)",(gen_custID(), *tup))
     conn.commit()
     conn.close()
     return True
@@ -73,26 +87,15 @@ def fetch_details(userid):
     conn.close()
     return a, b
 
-def search_users(search):
-    conn = sqlite3.connect('Amazoff/Online_Shopping.db')
-    cur = conn.cursor()
-    search = "%"+search+"%"
-    res = cur.execute("SELECT custID, name, email, phone, area, locality, city, state, country, zipcode FROM customer WHERE LOWER(name) like ?", (search,))
-    res = [i for i in res ]
-    conn.close()
-    return res
-
 def update_details(data, userid):
     conn = sqlite3.connect("Amazoff/Online_Shopping.db")
     cur = conn.cursor()
-
-    cur.execute("UPDATE customer SET phone=?, area=?, locality=?, city=?, state=?, country=?, zipcode=? where custID=?", (data["phone"],
-                data["area"],
-                data["locality"],
+    print("userID", userid, "data",data)
+    cur.execute("UPDATE customer SET Name=?, Phone=?, Address = ?, City=?, State=? WHERE custID=?", (data["name"], 
+                data["phone"],
+                data["address"],
                 data["city"],
                 data["state"],
-                data["country"],
-                data["zip"],
                 userid))
     conn.commit()
     conn.close()
@@ -170,10 +173,10 @@ def place_order(prodID, custID, qty):
 def cust_orders(custID):
     conn = sqlite3.connect('Amazoff/Online_Shopping.db')
     cur = conn.cursor()
-    a = cur.execute("""SELECT o.orderID, o.prodID, p.name, o.quantity, o.sell_price, o.date, o.status
+    a = cur.execute("""SELECT o.orderID, o.prodID, p.name, o.quantity, o.sell_price, o.date_, o.status
                        FROM orders o JOIN product p
                        WHERE o.prodID=p.prodID AND o.custID=? AND o.status!='RECIEVED'
-                       ORDER BY o.date DESC """, (custID,))
+                       ORDER BY o.date_ DESC """, (custID,))
     res = [i for i in a]
     conn.close()
     return res
@@ -197,10 +200,10 @@ def change_order_status(orderID, new_status):
 def cust_purchases(custID):
     conn = sqlite3.connect('Amazoff/Online_Shopping.db')
     cur = conn.cursor()
-    a = cur.execute("""SELECT o.prodID, p.name, o.quantity, o.sell_price, o.date
+    a = cur.execute("""SELECT o.prodID, p.name, o.quantity, o.sell_price, o.date_
                        FROM orders o JOIN product p
                        WHERE o.prodID=p.prodID AND o.custID=? AND o.status='RECIEVED'
-                       ORDER BY o.date DESC """, (custID,))
+                       ORDER BY o.date_ DESC """, (custID,))
     res = [i for i in a]
     conn.close()
     return res
@@ -240,6 +243,7 @@ def cart_purchase(custID):
         orderID = gen_orderID()
         prodID = item[0]
         qty = item[3]
+        cur.execute("UPDATE product SET prod_buy=prod_buy+1 WHERE prodID = ?", (prodID,))
         cur.execute("""INSERT INTO orders
                         SELECT ?,?,?,?,datetime('now'), cost_price*?, sell_price*?, 'PLACED'
                         FROM product WHERE prodID=? """, (orderID, custID, prodID, qty, qty, qty, prodID))

@@ -43,6 +43,14 @@ function validateForm(){
     return false;
   }
 }
+function validateForm2(){
+  var phone = document.getElementsByName("phone")[0].value;  
+  if (((phone.length<8)||(phone.length>12))||(!isNumeric(phone)))
+  {
+    alert("Invalid Phone Number!");
+    return false;
+  }
+}
 
 function checkEqual(){
   //var zip = document.getElementsByName("zip")[0].value;

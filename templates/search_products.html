@@ -4,30 +4,30 @@
 {% block search %}
 <form class="d-flex" action="" method="POST">
   <input class="form-control me-2" type="search" name="keyword" placeholder="Search" aria-label="Search" value="" style="width: 400px;">
-  <button class="btn btn-outline-success" type="submit" value="SEARCH">Search</button>-->
+  <button class="btn btn-outline-success" type="submit" value="SEARCH">Search</button>
 </form>
 {% endblock %}
 
 {% block body %}
- <br><br>
+<div class="second" style="padding: 20px;">
  {% if after_srch %}
  {% if results|length==0 %}
    <p>No results match your search</p>
  {% else %}
-<table>
+<table class="table table-dark table table-hover table-striped">
   <tr>
     <th>SNo.</th><th>Name</th>
-    <th>Category</th><th>Price</th><th></th>
+    <th>Category</th><th>Price</th>
   </tr>
   {% set cnt={'val':1} %}
   {% for i in results %}
   <tr>
-    <td>{{cnt['val']}}</td> <td>{{i[1]}}</td>  <td>{{i[2]}}</td> <td>₹ {{i[3]}}</td>
-   <td><a href="/viewproduct/{{i[0]}}">View</a></td>
+    <td>{{cnt['val']}}</td> <td><a href="/viewproduct/{{i[0]}}">{{i[1]}}</a></td>  <td>{{i[2]}}</td> <td>₹ {{i[3]}}</td>
   </tr>
   {% if cnt.update({'val':(cnt['val']+1)}) %}{% endif %}
   {% endfor %}
 </table>
 {% endif %}
 {% endif %}
+</div>
 {% endblock %}

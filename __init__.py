@@ -10,6 +10,7 @@ sess = Session()
 def home():
     if "userid" in session:
         print('hey im in')
+        items=home_recommender()
         if request.method=="POST":
             data = request.form
             if 'keyword' not in request.form:
@@ -25,11 +26,9 @@ def home():
             keyword = data["keyword"]
             results = search_products(srchBy, category, keyword)
             return render_template('search_products.html', after_srch=True, results=results)
-        if "userid" in session:
-            return render_template("home.html", signedin=True, id=session['userid'], name=session['name'])
-        return render_template("home.html", signedin=False)
+        return render_template("home.html", signedin=True, id=session['userid'], name=session['name'],items=items)
     else:
-        return render_template("signup.html", ok=True)
+        return redirect(url_for('signup'))
 
 @app.route("/test/<cat>/", methods=["POST", "GET"])
 def searchcategory(cat):
@@ -72,10 +71,11 @@ def view_profile(id):
         return redirect(url_for('home'))
     userid = session["userid"]
     my = True if userid==id else False
-
+    print("inside the app route")
     det, _ = fetch_details(id)   #details
     if len(det)==0:
         abort(404)
+    print(det)
     det = det[0]
     return render_template("view_profile.html", 
                             signedin=True, 
@@ -83,21 +83,19 @@ def view_profile(id):
                             name=det[1],
                             email=det[2],
                             phone=det[3],
-                            area=det[4],
-                            locality=det[5],
-                            city=det[6],
-                            state=det[7],
-                            country=det[8],
-                            zip=det[9],
+                            address=det[4],
+                            city=det[5],
+                            state=det[6],
                             my=my)
 
 @app.route("/editprofile/", methods=["POST", "GET"])
 def edit_profile():
     if 'userid' not in session:
-        return redirect(url_for('home'))
+        return redirect(url_for('signup'))
 
     if request.method=="POST":
         data = request.form
+        print(data)
         update_details(data, session['userid'])
         return redirect(url_for('view_profile', id=session['userid']))
 
@@ -105,21 +103,19 @@ def edit_profile():
         userid = session["userid"]
         det, _ = fetch_details(userid)
         det = det[0]
+        print("det",det)
         return render_template("edit_profile.html", signedin=True, id=session['userid'],
-                                name=det[1],
-                                email=det[2],
-                                phone=det[3],
-                                area=det[4],
-                                locality=det[5],
-                                city=det[6],
-                                state=det[7],
-                                country=det[8],
-                                zip=det[9])
+                            name=det[1],
+                            email=det[2],
+                            phone=det[3],
+                            address=det[4],
+                            city=det[5],
+                            state=det[6])
 
 @app.route("/changepassword/", methods=["POST", "GET"])
 def change_password():
     if 'userid' not in session:
-        return redirect(url_for('home'))
+        return redirect(url_for('signup'))
     check = True
     equal = True
     if request.method=="POST":
@@ -144,7 +140,7 @@ def view_prod():
 @app.route("/viewproduct/<id>/")
 def view_product(id):
     if 'userid' not in session:
-        return redirect(url_for('home'))
+        return redirect(url_for('signup'))
     ispresent, tup = get_product_info(id)
     if not ispresent:
         abort(404)
@@ -155,7 +151,7 @@ def view_product(id):
 @app.route("/buy/", methods=["POST", "GET"])
 def buy():
     if 'userid' not in session:
-        return redirect(url_for('home'))
+        return redirect(url_for('signup'))
     if request.method=="POST":
         data = request.form
         srchBy = data["search method"]
@@ -168,7 +164,7 @@ def buy():
 @app.route("/buy/<id>/", methods=['POST', 'GET'])
 def buy_product(id):
     if 'userid' not in session:
-        return redirect(url_for('home'))
+        return redirect(url_for('signup'))
     ispresent, tup = get_product_info(id)
     if not ispresent:
         abort(404)
@@ -182,7 +178,7 @@ def buy_product(id):
 @app.route("/buy/<id>/confirm/", methods=["POST", "GET"])
 def buy_confirm(id):
     if 'userid' not in session:
-        return redirect(url_for('home'))
+        return redirect(url_for('signup'))
     ispresent, tup = get_product_info(id)
     if not ispresent:
         abort(404)
@@ -204,14 +200,14 @@ def buy_confirm(id):
 @app.route("/buy/myorders/")
 def my_orders():
     if 'userid' not in session:
-        return redirect(url_for('home'))
+        return redirect(url_for('signup'))
     res = cust_orders(session['userid'])
     return render_template('my_orders.html', orders=res, signedin=True, id=session['userid'], name=session['name'])
 
 @app.route("/cancel/<orderID>/")
 def cancel_order(orderID):
     if 'userid' not in session:
-        return redirect(url_for('home'))
+        return redirect(url_for('signup'))
     res = get_order_details(orderID)
     if len(res)==0:
         abort(404)
@@ -247,7 +243,7 @@ def my_cart():
 @app.route("/buy/cart/confirm/", methods=["POST", "GET"])
 def cart_purchase_confirm():
     if 'userid' not in session:
-        return redirect(url_for('home'))
+        return redirect(url_for('signup'))
     if request.method=="POST":
         choice = request.form['choice']
         if choice=="PLACE ORDER":
@@ -266,21 +262,21 @@ def cart_purchase_confirm():
 def add_to_cart(prodID):
     print(prodID)
     if 'userid' not in session:
-        return redirect(url_for('home'))
+        return redirect(url_for('signup'))
     add_product_to_cart(prodID, session['userid'])
     return redirect(url_for('view_product', id=prodID))
 
 @app.route("/buy/cart/delete/")
 def delete_cart():
     if 'userid' not in session:
-        return redirect(url_for('home'))
+        return redirect(url_for('signup'))
     empty_cart(session['userid'])
     return redirect(url_for('my_cart'))
 
 @app.route("/buy/cart/delete/<prodID>/")
 def delete_prod_cart(prodID):
     if 'userid' not in session:
-        return redirect(url_for('home'))
+        return redirect(url_for('signup'))
     remove_from_cart(session['userid'], prodID)
     return redirect(url_for('my_cart'))
 

@@ -3,9 +3,10 @@
 {% endblock %}
 {% block style %}style="margin-left:1100px;"{% endblock %}
 {% block body %}
+<div class="second" style="margin:auto">
 <h2>Confirm Order Placement</h2>
 <form action="" method="POST">
-  <table>
+  <table class="table table-dark table table-striped">
     <tr>
       <th>SNo.</th><th>NAME</th><th>QUANTITY</th><th>AMOUNT</th>
     </tr>
@@ -23,7 +24,12 @@
   <table>
     <tr><th>TOTAL AMOUNT :</th><th>₹ {{total}}</th></tr>
   </table>
-  <input type="submit" name="choice" value="PLACE ORDER" style="display:block; margin-left:auto; margin-right:auto; margin-top:1vw;">
-  <input type="submit" name="choice" value="CANCEL" style="display:block; margin-left:auto; margin-right:auto; margin-top:1vw;">
+  <div class="neon-button">
+  <input type="submit" name="choice" value="PLACE ORDER">
+  </div>
+  <div class="neon-button">
+  <input type="submit" name="choice" value="CANCEL">
+  </div>
 </form>
+</div>
 {% endblock %}

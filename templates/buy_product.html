@@ -3,9 +3,10 @@
 {% endblock %}
 {% block style %}style="margin-left:1100px;"{% endblock %}
 {% block body %}
+<div class="second">
   <h2>{{name}}</h2>
   <form action="" method="POST">
-    <table>
+    <table class="table table-dark table table-striped">
       <tr>
         <td>CATEGORY :</td><td>{{category}}</td>
       </tr>
@@ -19,6 +20,11 @@
         <td>PRICE/UNIT :</td><td>₹ {{price}}</td>
       </tr>
     </table>
-    <input type="submit" value="PROCEED" style="display:block; margin-left:auto; margin-right:auto; margin-top:1vw;">
+    <div class="button-container">
+    <div class="neon-button">
+    <input type="submit" value="PROCEED">
+    </div>
+  </div>
   </form>
+</div>
 {% endblock %}

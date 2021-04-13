@@ -3,11 +3,12 @@
 {% endblock %}
 {% block style %}style="margin-left:1100px;"{% endblock %}
 {% block body %}
+<div class="second">
   <h2>My Orders</h2>
   {% if orders|length==0 %}
   <p>You have no orders yet.</p>
   {% else %}
-  <table>
+  <table class="table table-dark table table-striped">
     <tr>
       <th>SNO.</th><th>PRODUCT</th><th>QUANTITY</th><th>AMOUNT</th><th>DATE-TIME</th><th>STATUS</th><th></th>
     </tr>

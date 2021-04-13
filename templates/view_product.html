@@ -3,8 +3,9 @@
 {% endblock %}
 {% block style %}style="margin-left:1100px;"{% endblock %}
 {% block body %}
+      <div class="second">
         <h2>Product Information</h2>
-        <table>
+        <table class="table table-dark table table-striped">
             <tr>
                 <td>Name :</td><td>{{pname}}</td>
             </tr>
@@ -26,12 +27,20 @@
             </tr>
         </table>
         <div class="centerthis">
-        <p class="press"><a href="/buy/{{prod_id}}">Buy Product</a></p>
-        <p class="press"><a href="/buy/cart/{{prod_id}}">Add to Cart</a></p>
+          <div class="button-container">
+          <div class="button">
+          <a href="/buy/{{prod_id}}">Buy Product</a>
+          </div>
+          </div>
+          <div class="button-container">
+          <div class="button">
+          <a href="/buy/cart/{{prod_id}}">Add to Cart</a>
+          </div>
+          </div>
         </div>
 
         <h2>Recommended Items</h2>
-        <table>
+        <table class="table table-dark table table-striped">
           <tr>
             <th>SNo.</th><th>Name</th>
             <th>Category</th><th>Price</th><th></th>
@@ -45,4 +54,5 @@
           {% if cnt.update({'val':(cnt['val']+1)}) %}{% endif %}
           {% endfor %}
         </table>
+      </div>
 {% endblock %}

@@ -3,13 +3,13 @@
 {% endblock %}
 {% block style %}style="margin-left:1100px;"{% endblock %}
 {% block body %}
-
+<div class="second">
 <h2>My Cart</h2>
 {% if cart|length==0 %}
-<p>Your Cart is empty right now. <a href="/buy">Click here to Shop for products</a></p>
+<p>Your Cart is empty right now. <a href="/">Click here to Shop for products</a></p>
 {% else %}
 <form action="" method="POST">
-  <table>
+  <table class="table table-dark table table-striped">
     <tr>
       <th>SNO.</th><th>PRODUCT</th><th>PRICE (PER UNIT)</th><th>QUANTITY</th><th></th>
     </tr>
@@ -23,8 +23,13 @@
   {%if cnt.update({'val':(cnt['val']+1)}) %}{% endif %}
   {% endfor %}
 </table>
-<p class="press"><a href="/buy/cart/delete">EMPTY CART</a></p>
-<input type="submit" value="PROCEED TO ORDER" style="display:block; margin-left:auto; margin-right:auto; margin-top:1vw;">
+<div class="button" style="margin:5px;">
+<a href="/buy/cart/delete">EMPTY CART</a>
+</div>
+<div class="neon-button" style="width:210px;">
+<input type="submit" value="PROCEED TO ORDER">
+</div>
 {% endif %}
 </form>
+</div>
 {% endblock %}

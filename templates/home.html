@@ -4,94 +4,41 @@
 {% block search %}
 <form class="d-flex" action="" method="POST">
   <input class="form-control me-2" type="search" name="keyword" placeholder="Search" aria-label="Search" value="" style="width: 400px;">
-  <button class="btn btn-outline-success" type="submit" value="SEARCH">Search</button>-->
+  <button class="btn btn-outline-success" type="submit" value="SEARCH">Search</button>
 </form>
 {% endblock %}
 {% block body %}
 <div class="main">
+{% for category,item_list in items.items() %}
     <div class="category">
       <div>
-        <h2>Category 1</h2>
+        <h2>{{category}}</h2>
       </div>
       <div>
           <form method="POST" name="categoryinput">
-            <input type="submit" name="Electronics and Tech" value="View More">
+            <div class="neon-container">
+              <div class="neon-button">
+                <input type="submit" name={{category}} value="View More">
+              </div>
+            </div>
           </form>
           <!--<a href="/test/lmao" name="category">View More >></a>-->
       </div>
     </div>
-    <div class="card" style="width: 18rem;">
-      <img src="../static/avatar.png" class="card-img-top" alt="...">
+    {% for item in item_list %}
+    <div class="card" style="width: 18rem; background-color: #272727;">
+      <img src="../static/{{category}}.jpg" class="card-img-top" alt="...">
       <div class="card-body">
-        <h5 class="card-title">Card title</h5>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        <a href="#" class="btn btn-primary">Go somewhere</a>
+        <h5 class="card-title">{{item[1]}}</h5>
+        <p class="card-text">{{item[2]}}</p>
+        <div id="button-div">
+        <div class="button">
+        <a href="/viewproduct/{{item[0]}}">View details</a>
+        </div>
+      </div>
       </div>
     </div>
-    <div class="card" style="width: 18rem;">
-      <img src="../static/avatar.png" class="card-img-top" alt="...">
-      <div class="card-body">
-        <h5 class="card-title">Card title</h5>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        <a href="#" class="btn btn-primary">Go somewhere</a>
-      </div>
-    </div>
-    <div class="card" style="width: 18rem;">
-      <img src="../static/avatar.png" class="card-img-top" alt="...">
-      <div class="card-body">
-        <h5 class="card-title">Card title</h5>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        <a href="#" class="btn btn-primary">Go somewhere</a>
-      </div>
-    </div>
-    <div class="card" style="width: 18rem;">
-      <img src="../static/avatar.png" class="card-img-top" alt="...">
-      <div class="card-body">
-        <h5 class="card-title">Card title</h5>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        <a href="#" class="btn btn-primary">Go somewhere</a>
-      </div>
-    </div> 
-    <div class="category">
-      <div>
-        <h2>Category 2</h2>
-      </div>
-      <div>
-        <a href="#">View More >></a>
-      </div>
-    </div>
-    <div class="card" style="width: 18rem;">
-      <img src="../static/avatar.png" class="card-img-top" alt="...">
-      <div class="card-body">
-        <h5 class="card-title">Card title</h5>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        <a href="#" class="btn btn-primary">Go somewhere</a>
-      </div>
-    </div>
-    <div class="card" style="width: 18rem;">
-      <img src="../static/avatar.png" class="card-img-top" alt="...">
-      <div class="card-body">
-        <h5 class="card-title">Card title</h5>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        <a href="#" class="btn btn-primary">Go somewhere</a>
-      </div>
-    </div>
-    <div class="card" style="width: 18rem;">
-      <img src="../static/avatar.png" class="card-img-top" alt="...">
-      <div class="card-body">
-        <h5 class="card-title">Card title</h5>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        <a href="#" class="btn btn-primary">Go somewhere</a>
-      </div>
-    </div>
-    <div class="card" style="width: 18rem;">
-      <img src="../static/avatar.png" class="card-img-top" alt="...">
-      <div class="card-body">
-        <h5 class="card-title">Card title</h5>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        <a href="#" class="btn btn-primary">Go somewhere</a>
-      </div>
-    </div>   
-  </div>
-  </div>
-  {% endblock %}
+    {% endfor %}
+{% endfor %}
+</div>
+{% endblock %}
