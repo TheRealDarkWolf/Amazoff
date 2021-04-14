@@ -4,11 +4,12 @@
   <link rel="stylesheet" href="{{url_for('static', filename='login.css')}}">
   <link href="https://fonts.googleapis.com/css?family=Acme|K2D" rel="stylesheet">
   <link rel='icon' href="{{url_for('static', filename='logo.png')}}">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap" rel="stylesheet">
   <!--<link rel="stylesheet" href="../static/login.css">-->
 </head>
 <body>
   <div class="signupbox">
-    <img src="../static/avatar.png" class="avatar">
+    <img src="../static/avatar_neon.jpg" class="avatar">
     <h1>Create Account</h1>
     {% if not ok %}
       <p>Sorry! Account with provided email already exists. Please enter another email</p>
@@ -56,8 +57,12 @@
           </td>
         </tr>  
       </table>
-      <input type="submit" name="" value="Sign Up">
-      <a href="/login" style="margin-left: 220px;">Already have an account?</a><br>
+      <div class="neon-button">
+        <input type="submit" name="" value="Sign Up">
+      </div>
+      <div style="width:100%; padding:10px; text-align: center;">
+      <a href="/login" style="margin-right: 15px;">Already have an account?</a><br>
+      </div>
       <script type="text/javascript" src="{{url_for('static', filename='main.js')}}"></script>
     </form>
 

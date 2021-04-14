@@ -1,7 +1,8 @@
 body{
     margin: 0;
     padding: 0;
-    background: url(./background_login.jpg);
+    background: url(./neon_background.jpg);
+    backdrop-filter: blur(5px);
     background-size: cover;
     background-position: center;
     font-family: sans-serif;
@@ -9,11 +10,13 @@ body{
 
 .loginbox{
     width: 320px;
-    height: 420px;
-    background: #000;
-    color: #fff;
+    min-height: 420px;
+    background: #272727;
+    color: #bb86fc;
     top: 50%;
     left: 50%;
+    border: 3px solid #bb86fc;
+    border-radius: 10px;
     position: absolute;
     transform: translate(-50%,-50%);
     box-sizing: border-box;
@@ -21,15 +24,25 @@ body{
 }
 .signupbox{
     width: 640px;
-    height: 550px;
-    background: #000;
-    color: #fff;
+    min-height: 550px;
+    background: #272727;
+    color: #bb86fc;
+    border: 3px solid #bb86fc;
+    border-radius: 10px;
     top: 50%;
     left: 50%;
     position: absolute;
     transform: translate(-50%,-50%);
     box-sizing: border-box;
     padding: 70px 30px;
+}
+
+.loginbox:hover, .signupbox:hover 
+{ 
+
+    box-shadow: 0 2px 20px 0 #bb86fc inset, 0 2px 20px 0 #bb86fc,
+                0 2px 20px 0 #bb86fc inset, 0 2px 20px 0 #bb86fc;
+    transition: 1.5s;
 }
 
 table.signuptable {
@@ -56,7 +69,7 @@ h1{
     margin: 0;
     padding: 0;
     font-weight: bold;
-    color:white;
+    color:#bb86fc;
 }
 
 .loginbox input, .signupbox input{
@@ -64,81 +77,106 @@ h1{
     margin-bottom: 20px;
 }
 
-.loginbox input[type="email"], input[type="password"]
+
+input[type="email"], input[type="password"], input[type="text"]
 {
     border: none;
-    border-bottom: 1px solid #fff;
+    border-bottom: 1px solid #bb86fc;
     background: transparent;
     outline: none;
     height: 40px;
     color: #fff;
     font-size: 16px;
 }
-.loginbox input[type="submit"]
+.neon-button
 {
-    border: none;
-    outline: none;
-    height: 40px;
-    background: #fb2525;
-    color: #fff;
-    font-size: 18px;
-    border-radius: 20px;
+    position: relative;
+    text-align: center;
+    width: 200px;
+    padding:10px;
+    margin:auto;
+    margin-bottom: 5px;
+    font-size: 20px;
+    color:#bb86fc;
+    font-family:poppins;
+    font-weight: 400;
+    border: 2px solid #bb86fc;
+    text-transform: uppercase;
+    letter-spacing: 10px;
+    border-radius: 80px;
+    transition: 1.5s;
 }
-.loginbox input[type="submit"]:hover
+
+.button-container{
+    width:100%;
+}
+
+.button
 {
-    cursor: pointer;
-    background: #ffc107;
-    color: #000;
+    text-align: center;
+    width: 140px;
+    padding:5px;
+    margin:auto;
+    margin-bottom: 5px;
+    font-size: 15px;
+    color:#bb86fc;
+    font-family:poppins;
+    font-weight: 400;
+    border: 2px solid #bb86fc;
+    text-transform: uppercase;
+    border-radius: 80px;
 }
-.loginbox a{
+.neon-button:hover{
+    box-shadow: 0 2px 10px 0 #bb86fc inset, 0 2px 10px 0 #bb86fc,
+                0 2px 10px 0 #bb86fc inset, 0 2px 10px 0 #bb86fc;
+    text-shadow: 0 0 5px #bb86fc,0 0 5px #bb86fc;
+}
+
+input[type=submit]{
+    color: inherit;
+    font:inherit;
     text-decoration: none;
-    font-size: 12px;
-    line-height: 20px;
-    color: darkgrey;
+    background: none;
+    border:none;
+    padding: 0;
+    outline:inherit;
+    margin-bottom: 0px;
 }
 
-.loginbox a:hover
-{
-    color: #ffc107;
+input[type=submit]:hover 
+{ 
+     text-decoration:none; 
+     transition: 1.5s;
+     text-shadow: 0 0 5px #bb86fc,0 0 5px #bb86fc;
 }
 
-.signupbox input[type="email"], input[type="password"], input[type="text"]
-{
-    border: none;
-    border-bottom: 1px solid #fff;
-    background: transparent;
-    outline: none;
-    height: 40px;
-    color: #fff;
-    font-size: 16px;
-}
-.signupbox input[type="submit"]
-{
-    border: none;
-    outline: none;
-    height: 40px;
-    background: #fb2525;
-    color: #fff;
-    font-size: 18px;
-    border-radius: 20px;
-}
-.signupbox input[type="submit"]:hover
-{
-    cursor: pointer;
-    background: #ffc107;
-    color: #000;
-}
-.signupbox a{
+
+
+
+.button a{
+    color: inherit;
     text-decoration: none;
-    font-size: 12px;
-    line-height: 20px;
-    color: darkgrey;
 }
 
-.signupbox a:hover
-{
-    color: #ffc107;
+.button a:hover{
+    text-decoration:none; 
+    color: inherit;
+    transition: 1.5s;
+    text-shadow: 0 0 5px #bb86fc,0 0 5px #bb86fc;
 }
+a
+{
+    text-decoration:none;
+    color:#bb86fc;
+}
+
+a:hover{
+    text-decoration:none; 
+    color: #bb86fc;
+    transition: 1.5s;
+    text-shadow: 0 0 5px #bb86fc,0 0 5px #bb86fc;
+}
+
 
 .signuptable{
     width:600px;
