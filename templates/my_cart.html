@@ -31,5 +31,22 @@
 </div>
 {% endif %}
 </form>
+{% if rec_items|length > 0 %}
+  <h2>Recommended Items</h2>
+  <table class="table table-dark table table-striped">
+    <tr>
+      <th>SNo.</th><th>Name</th>
+      <th>Category</th><th>Price</th><th></th>
+    </tr>
+    {% set cnt={'val':1} %}
+    {% for i in rec_items %}
+    <tr>
+      <td>{{cnt['val']}}</td> <td>{{i[1]}}</td>  <td>{{i[2]}}</td> <td>₹ {{i[3]}}</td>
+      <td><a href="/viewproduct/{{i[0]}}">View</a></td>
+    </tr>
+    {% if cnt.update({'val':(cnt['val']+1)}) %}{% endif %}
+    {% endfor %}
+  </table>
+{% endif %}
 </div>
 {% endblock %}

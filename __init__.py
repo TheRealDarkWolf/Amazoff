@@ -227,7 +227,10 @@ def my_cart():
     if "userid" in session:
         print("cart in session")
         cart = get_cart(session['userid'])
-        print(cart)
+        #print(cart)
+        items= [i[0] for i in cart]
+        rec_items=cart_recommendations(items)
+        #print(rec_items)
         if request.method=="POST":
             data = request.form
             qty = {}
@@ -236,7 +239,7 @@ def my_cart():
                     qty[i[3:]]=data[i]      #qty[prodID]=quantity
             update_cart(session['userid'], qty)
             return redirect("/buy/cart/confirm/")
-        return render_template("my_cart.html", signedin=True, id=session['userid'], name=session['name'], cart=cart)
+        return render_template("my_cart.html", signedin=True, id=session['userid'], name=session['name'], cart=cart, rec_items=rec_items)
     else:
         return render_template("home.html", signedin=False)
     

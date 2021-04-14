@@ -42,7 +42,7 @@ body{
 
     box-shadow: 0 2px 20px 0 #bb86fc inset, 0 2px 20px 0 #bb86fc,
                 0 2px 20px 0 #bb86fc inset, 0 2px 20px 0 #bb86fc;
-    transition: 1.5s;
+    transition: 1s;
 }
 
 table.signuptable {
@@ -104,7 +104,7 @@ input[type="email"], input[type="password"], input[type="text"]
     text-transform: uppercase;
     letter-spacing: 10px;
     border-radius: 80px;
-    transition: 1.5s;
+    transition: 1s;
 }
 
 .button-container{
@@ -146,7 +146,7 @@ input[type=submit]{
 input[type=submit]:hover 
 { 
      text-decoration:none; 
-     transition: 1.5s;
+     transition: 1s;
      text-shadow: 0 0 5px #bb86fc,0 0 5px #bb86fc;
 }
 
@@ -161,7 +161,7 @@ input[type=submit]:hover
 .button a:hover{
     text-decoration:none; 
     color: inherit;
-    transition: 1.5s;
+    transition: 1s;
     text-shadow: 0 0 5px #bb86fc,0 0 5px #bb86fc;
 }
 a
@@ -173,7 +173,7 @@ a
 a:hover{
     text-decoration:none; 
     color: #bb86fc;
-    transition: 1.5s;
+    transition: 1s;
     text-shadow: 0 0 5px #bb86fc,0 0 5px #bb86fc;
 }
 

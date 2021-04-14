@@ -84,14 +84,31 @@ form.d-flex{
     align-items: center;
     text-align: center;
 }
-input[type=text], input[type=email], input[type=password],input[type=tel], input[type=search], input[type=number],select, textarea{
+input[type=text], input[type=email], input[type=password],input[type=tel],input[type=number]{
     font-family: inherit;
-    background-color: rgba(240, 248, 255, 0.534);
-    border-radius: 0.5vw;
+    color: white;
+    background-color: #121212;
+    border-radius: 80px;
     width: 60%;
-    font-size: 1.4vw;
+    font-size: 20px;
+    border: 2px solid #bb86fc;
+    text-align: center;
     padding:0.5vw;
 }
+input[type=text]:hover, input[type=email]:hover, input[type=password]:hover, input[type=tel]:hover{
+    box-shadow: 0 2px 10px 0 #bb86fc inset, 0 2px 10px 0 #bb86fc,
+                0 2px 10px 0 #bb86fc inset, 0 2px 10px 0 #bb86fc;
+}
+
+input:focus{
+    outline:none;
+}
+
+#editprofile td, #viewprofile td{
+    text-align: center;
+}
+
+
 textarea{
     height: 10vw;
 }
@@ -111,7 +128,7 @@ textarea{
     text-transform: uppercase;
     letter-spacing: 10px;
     border-radius: 80px;
-    transition: 1.5s;
+    transition: 1s;
 }
 
 .button-container{
@@ -157,7 +174,7 @@ input[type=submit]{
 .button a:hover{
     text-decoration:none; 
     color: inherit;
-    transition: 1.5s;
+    transition: 1s;
     text-shadow: 0 0 5px #bb86fc,0 0 5px #bb86fc;
 }
 
@@ -174,7 +191,7 @@ color:#bb86fc;
 input[type=submit]:hover 
 { 
      text-decoration:none; 
-     transition: 1.5s;
+     transition: 1s;
      text-shadow: 0 0 5px #bb86fc,0 0 5px #bb86fc;
 }
 table{

@@ -284,4 +284,35 @@ def recommended_items(prodID):
             del result[-1]
     return list(set(result))
 
+def cart_recommendations(item_list):
+    conn = sqlite3.connect('Amazoff/Online_Shopping.db')
+    cur = conn.cursor()
+    rec_items=[]
+    if len(item_list)==0:
+        return rec_items
+    #print("item list",item_list)
+    for prodID in item_list:    
+        cur.execute("SELECT category, sellID FROM product where prodID = ? ", (prodID,))
+        output = cur.fetchall()
+        if len(output) == 0:
+            return False
+        category, sellID = output[0]
+        cur.execute("SELECT prodID FROM product WHERE category = ?", (category,))
+        recID = cur.fetchall()
+        cur.execute("SELECT prodID FROM product WHERE sellID = ?", (sellID,))
+        recID.extend(cur.fetchall())
+        recID=list(set(recID))
+        #print("recID",recID)
+        result = []
+        for id in recID:
+            cur.execute("SELECT prodID, name, category, sell_price FROM product WHERE prodID = ?", (id[0],))
+            temp=cur.fetchall()
+            #print("temp",temp)
+            if temp[0][0] not in item_list:
+                result.extend(temp)
+            if len(result)==2:
+                break
+        #print("result",result)
+        rec_items.extend(list(set(result)))
+    return rec_items
 
