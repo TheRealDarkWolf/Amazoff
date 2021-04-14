@@ -14,18 +14,20 @@ def home():
         if request.method=="POST":
             data = request.form
             if 'keyword' not in request.form:
+                print(data)
                 category = list(data.keys())[0]
+                #print(category)
                 keyword=""
                 srchBy="by category"
                 results = search_products(srchBy, category, keyword)
-                return render_template('search_products.html', after_srch=True, results=results)
+                return render_template('search_products.html', after_srch=True,signedin=True, results=results)
             #print('inside the form')
             #print(data)
             srchBy = 'by keyword'
             category = None
             keyword = data["keyword"]
             results = search_products(srchBy, category, keyword)
-            return render_template('search_products.html', after_srch=True, results=results)
+            return render_template('search_products.html', after_srch=True,signedin=True, results=results)
         return render_template("home.html", signedin=True, id=session['userid'], name=session['name'],items=items)
     else:
         return redirect(url_for('signup'))
@@ -241,7 +243,7 @@ def my_cart():
             return redirect("/buy/cart/confirm/")
         return render_template("my_cart.html", signedin=True, id=session['userid'], name=session['name'], cart=cart, rec_items=rec_items)
     else:
-        return render_template("home.html", signedin=False)
+        return redirect(url_for('signup'))
     
 @app.route("/buy/cart/confirm/", methods=["POST", "GET"])
 def cart_purchase_confirm():

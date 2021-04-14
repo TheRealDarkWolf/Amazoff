@@ -34,13 +34,15 @@ def home_recommender():
     conn = sqlite3.connect('Amazoff/Online_Shopping.db')
     cur = conn.cursor()
     items={}
-    categories=['Electronics','Fashion','Sports']
+    #categories=['Electronics','Fashion','Sports']
+    cur.execute("SELECT distinct category FROM product")
+    categories=cur.fetchall()
     for category in categories:
-        cur.execute("SELECT prodID, name, description, sell_price FROM product where category=? ORDER BY prod_buy DESC", (category,))
+        cur.execute("SELECT prodID, name, description, sell_price FROM product where category=? ORDER BY prod_buy DESC", (category[0],))
         output = cur.fetchmany(4)
-        items[category]=[list(item) for item in output]
-        while len(items[category])<4:
-            items[category].append(['dummy','dummy','dummy',0])
+        items[category[0]]=[list(item) for item in output]
+        while len(items[category[0]])<4:
+            items[category[0]].append(['dummy','dummy','dummy',0])
     if len(items) == 0:
         return False
     return items
