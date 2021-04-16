@@ -9,12 +9,12 @@ sess = Session()
 @app.route("/", methods=["POST", "GET"])
 def home():
     if "userid" in session:
-        print('hey im in')
+        #print('hey im in')
         items=home_recommender()
         if request.method=="POST":
             data = request.form
             if 'keyword' not in request.form:
-                print(data)
+                #print(data)
                 category = list(data.keys())[0]
                 #print(category)
                 keyword=""
@@ -34,15 +34,15 @@ def home():
 
 @app.route("/test/<cat>/", methods=["POST", "GET"])
 def searchcategory(cat):
-    print("hey im here",cat)
+    #print("hey im here",cat)
     return render_template("home.html", signedin=True, id=session['userid'], name=session['name'])
 
 @app.route("/signup/", methods = ["POST", "GET"])
 def signup():
     if request.method == "POST":
         data = request.form
-        print("here")
-        print(data)
+        #print("here")
+        #print(data)
         ok = add_user(data)
         if ok:
             return render_template("success_signup.html")
@@ -73,11 +73,11 @@ def view_profile(id):
         return redirect(url_for('home'))
     userid = session["userid"]
     my = True if userid==id else False
-    print("inside the app route")
+    #print("inside the app route")
     det, _ = fetch_details(id)   #details
     if len(det)==0:
         abort(404)
-    print(det)
+    #print(det)
     det = det[0]
     return render_template("view_profile.html", 
                             signedin=True, 
@@ -97,7 +97,7 @@ def edit_profile():
 
     if request.method=="POST":
         data = request.form
-        print(data)
+        #print(data)
         update_details(data, session['userid'])
         return redirect(url_for('view_profile', id=session['userid']))
 
@@ -105,7 +105,7 @@ def edit_profile():
         userid = session["userid"]
         det, _ = fetch_details(userid)
         det = det[0]
-        print("det",det)
+        #print("det",det)
         return render_template("edit_profile.html", signedin=True, id=session['userid'],
                             name=det[1],
                             email=det[2],
@@ -175,7 +175,7 @@ def buy_product(id):
         data = request.form
         total = int(data['qty'])*float(sell_price)
         return redirect(url_for('buy_confirm', total=total, quantity=data['qty'], id=id))
-    return render_template('buy_product.html', name=name, category=category, desp=desp, quantity=quantity, price=sell_price, signedin=True, id=session['userid'])
+    return render_template('buy_product.html', pname=name,name=session['name'], category=category, desp=desp, quantity=quantity, price=sell_price, signedin=True, id=session['userid'])
 
 @app.route("/buy/<id>/confirm/", methods=["POST", "GET"])
 def buy_confirm(id):
@@ -227,7 +227,7 @@ def cancel_order(orderID):
 @app.route("/buy/cart/", methods=["POST", "GET"])
 def my_cart():
     if "userid" in session:
-        print("cart in session")
+        #print("cart in session")
         cart = get_cart(session['userid'])
         #print(cart)
         items= [i[0] for i in cart]
@@ -265,7 +265,7 @@ def cart_purchase_confirm():
 
 @app.route("/buy/cart/<prodID>/")
 def add_to_cart(prodID):
-    print(prodID)
+    #print(prodID)
     if 'userid' not in session:
         return redirect(url_for('signup'))
     add_product_to_cart(prodID, session['userid'])
